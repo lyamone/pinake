@@ -1,0 +1,26 @@
+<div class="flex w-100 flex-col gap-4 p-2 rounded-md font-sans text-sm">
+	<div class="flex flex-col gap-4">
+		@if (this.isProblem()) {
+			<h1 class="font-bold text-xl">
+				{{ problem()?.title }}
+			</h1>
+		}
+		<div class="flex items-center gap-2 text-gray-400">
+			<span class="">{{ text() }} </span>
+			<span class="text-gray-300 text-xs">
+				{{ problem()?.createdAt | date: 'MMM dd,YYYY' }}
+			</span>
+			by
+			<div class="flex flex-row">
+				<div class="h-6 w-6 shrink-0 rounded-full border-gray-300 border">
+					<img [src]="problem()?.createdBy?.userImage" alt="User image" class="rounded-full" />
+				</div>
+
+				<a href="" class="btn btn-link btn-xs text-xs" routerLink="/user/{{ problem()?.createdBy?.id }}">
+					{{ problem()?.createdBy?.displayName }}
+				</a>
+			</div>
+		</div>
+		<div class="text-gray-300 text-lg" [innerHTML]="problem()?.description"></div>
+	</div>
+</div>

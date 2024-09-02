@@ -1,0 +1,32 @@
+{
+	"printWidth": 120,
+	"useTabs": true,
+	"tabWidth": 2,
+	"semi": true,
+	"bracketSpacing": true,
+	"singleQuote": true,
+	"arrowParens": "always",
+	"trailingComma": "all",
+	"bracketSameLine": true,
+	"requirePragma": false,
+	"insertPragma": false,
+	"embeddedLanguageFormatting": "auto",
+	"proseWrap": "always",
+	"htmlWhitespaceSensitivity": "css",
+	"overrides": [
+		{
+			"files": ["**/*.html"],
+			"options": {
+				"printWidth": 120,
+				"parser": "angular"
+			}
+		},
+		{
+			"files": ["**/*.css"],
+			"options": {
+				"printWidth": 100,
+				"parser": "scss"
+			}
+		}
+	]
+}
