@@ -1,0 +1,119 @@
+@if (user) {
+  <div class="flex flex-col h-screen min-h-screen max-h-screen overflow-hidden">
+    <pnk-ui-navbar>
+      <img src="img/logo-xl.png" ngProjectAs="logo" routerLink="/" />
+      <img [alt]="user.displayName + ' avatar'" [src]="user.avatarUrl || 'img/anon.png'" ngProjectAs="user-image" />
+      <div class="flex" ngProjectAs="user-info">{{ user.displayName }}</div>
+    </pnk-ui-navbar>
+    <div class="flex flex-grow overflow-hidden">
+      <div class="sidebar position-fixed flex h-full border-gray-800 border-r md:p-4 w-18 sm:28 md:w-56">
+        <ul class="menu rounded-box w-full">
+          <li>
+            <a href="/">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 md:h-6 w-5 md:w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+              <span class="hidden md:block text-lg">Home</span>
+            </a>
+          </li>
+          <li>
+            <a>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 md:h-6 w-5 md:w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span class="hidden md:block text-lg">Discover</span>
+            </a>
+          </li>
+          <li>
+            <a href="/verifiers">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 md:h-6 w-5 md:w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+              <span class="hidden md:block text-lg">Verifiers</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+  
+      <main class="container sm:container flex flex-1 flex-col overflow-y-auto sm:p-2 xl:p-4 min-h-full">
+        <div class="bg-base-200 rounded-lg p-6 mb-6">
+          <div class="flex items-center mb-4">
+            <img [src]="user.userImage || 'img/anon.png'" [alt]="user.displayName + ' avatar'" class="w-20 h-20 rounded-full mr-4">
+            <div>
+              <h1 class="text-2xl font-bold">{{ user.displayName }}</h1>
+              <!-- <p class="text-sm text-gray-500">Member since {{ user.joinDate | date:'mediumDate' }}</p> -->
+            </div>
+          </div>
+          <p class="mb-2">{{ user.bio || 'No bio provided' }}</p>
+          <div class="flex space-x-4">
+            <span class="badge badge-primary">Reputation: {{ user.reputation || 0 }}</span>
+            <span class="badge badge-secondary">Problems Verified: {{ user.verifiedProblems || 0 }}</span>
+            <span class="badge badge-accent">Solutions Posted: {{ user.postedSolutions || 0 }}</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-base-200 rounded-lg p-6">
+            <h2 class="text-xl font-semibold mb-4">Recent Activity</h2>
+            @if (user.recentActivity && user.recentActivity.length > 0) {
+              <ul class="space-y-2">
+                @for (activity of user.recentActivity; track activity.activityId) {
+                  <li class="flex items-center">
+                    <span class="mr-2">{{ activity.icon }}</span>
+                    <span>{{ activity.description }}</span>
+                  </li>
+                }
+              </ul>
+            } @else {
+              <p>No recent activity</p>
+            }
+          </div>
+
+          <div class="bg-base-200 rounded-lg p-6">
+            <h2 class="text-xl font-semibold mb-4">Top Contributions</h2>
+            @if (user.topContributions && user.topContributions.length > 0) {
+              <ul class="space-y-2">
+                @for (contribution of user.topContributions; track contribution.activityId) {
+                  <li>
+                    <a [href]="contribution.link" class="text-primary hover:underline">{{ contribution.title }}</a>
+                    <span class="text-sm text-gray-500 ml-2">+{{ contribution.score }} points</span>
+                  </li>
+                }
+              </ul>
+            } @else {
+              <p>No top contributions yet</p>
+            }
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+  
+}
